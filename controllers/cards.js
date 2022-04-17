@@ -1,5 +1,5 @@
 const Card = require("../models/card.js");
-const ERROR_CODE = 404;
+const ERROR_CODE = 400;
 
 // создаёт карточку
 const createCard = (req, res) => {
@@ -55,11 +55,11 @@ const likeCard = (req, res) => {
     .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === "ValidationError") {
-        res.status(400).send({
+        res.status(ERROR_CODE).send({
           message: "Переданы некорректные данные для постановки лайка.",
         });
       } else if (err.name === "CastError") {
-        res.status(ERROR_CODE).send({
+        res.status(404).send({
           message: "Передан несуществующий _id карточки.",
         });
       } else {
@@ -79,11 +79,11 @@ const dislikeCard = (req, res) => {
     .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === "ValidationError") {
-        res.status(400).send({
+        res.status(ERROR_CODE).send({
           message: "Переданы некорректные данные для снятии лайка.",
         });
       } else if (err.name === "CastError") {
-        res.status(ERROR_CODE).send({
+        res.status(404).send({
           message: "Передан несуществующий _id карточки.",
         });
       } else {
