@@ -24,6 +24,7 @@ const getUserById = (req, res) => {
       res.status(500).send({ message: "Такого пользователя не существует" })
     );
 };
+
 const updateUser = (req, res) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(

@@ -5,15 +5,15 @@ const {
   getCards,
   createCard,
   delCardsById,
-  // isLikedCards,
-  // delLikedCards,
+  likeCard,
+  dislikeCard,
 } = require("../controllers/cards.js"); // импортируем user контроллеры
 
 cardRouter.get("/cards", express.json(), getCards); // возвращает все карточки
 cardRouter.post("/cards", createCard); // создаёт карточку
 cardRouter.delete("/cards/:cardId", delCardsById); // удаляет карточку по идентификатору
-// userRouter.put("/cards/:cardId/likes", isLikedCards); //поставить лайк карточке
-// userRouter.delete("/cards/:cardId/likes", delLikedCards); //убрать лайк с карточки
+cardRouter.put("/cards/:cardId/likes", likeCard); //поставить лайк карточке
+cardRouter.delete("/cards/:cardId/likes", dislikeCard); //убрать лайк с карточки
 
 // экспортируем его
 module.exports = cardRouter;
