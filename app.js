@@ -18,12 +18,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res) => {
-  res.status(404).send({ message: "Роутер не найден!" });
-});
 app.use(express.json()); // для собирания JSON-формата
 app.use(userRouter); // запускаем user
 app.use(cardRouter); // запускаем Card
+app.use((req, res) => {
+  res.status(404).send({ message: "Роутер не найден!" });
+});
 
 // подключаемся к серверу mongo
 mongoose.connect("mongodb://localhost:27017/mestodb");
