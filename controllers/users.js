@@ -27,15 +27,18 @@ const getUsers = (req, res) => {
 // возвращает пользователя по _id
 const getUserById = (req, res) => {
   User.findById(req.params.userId)
-    .then((user) => res.send({ data: user }))
-
+    .then((user) => {
+      if (user.data !== null) {
+        res.send({ data: card });
+      }
+    })
     .catch((err) => {
       if (err.name === "CastError") {
-        res.status(404).send({
+        res.status(ERROR_CODE).send({
           message: "Пользователь по указанному _id не найден.",
         });
       } else {
-        res.status(500).send({ message: "Произошла ошибка" });
+        res.status(404).send({ message: "Произошла ошибка" });
       }
     });
 };

@@ -36,8 +36,6 @@ const delCardsById = (req, res) => {
     .then((card) => {
       if (card.data !== null) {
         res.send({ data: card });
-      } else {
-        res.status(404).send({ message: "Произошла ошибка" });
       }
     })
     .catch((err) => {
@@ -46,7 +44,7 @@ const delCardsById = (req, res) => {
           message: "Карточка с указанным _id не найдена.",
         });
       } else {
-        res.status(500).send({ message: "Произошла ошибка" });
+        res.status(404).send({ message: "Произошла ошибка" });
       }
     });
 };
