@@ -21,12 +21,12 @@
   "homepage": "https://github.com/Aksenov-m/express-mesto-gha#readme",
   "devDependencies": {
     "eslint": "^8.13.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
   },
   "dependencies": {
     "body-parser": "^1.20.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.10"
   },
