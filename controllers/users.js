@@ -26,10 +26,11 @@ const getUsers = (req, res) => {
 
 // возвращает пользователя по _id
 const getUserById = (req, res) => {
+  debugger;
   User.findById(req.params.userId)
     .then((user) => {
       if (user.data !== null) {
-        res.send({ data: card });
+        res.send({ data: user });
       }
     })
     .catch((err) => {
