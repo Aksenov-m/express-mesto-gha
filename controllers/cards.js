@@ -33,7 +33,13 @@ const getCards = (req, res) => {
 // удаляет карточку
 const delCardsById = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      if (card.data !== null) {
+        res.send({ data: card });
+      } else {
+        res.status(404).send({ message: "Произошла ошибка" });
+      }
+    })
     .catch((err) => {
       if (err.name === "CastError") {
         res.status(ERROR_CODE).send({
