@@ -1,7 +1,7 @@
 const {
   ERROR_BAD_REQUEST,
   ERROR_NOT_FOUND,
-  ERROR_DEFAUIT,
+  ERROR_DEFAULT,
 } = require('../constants');
 
 const User = require('../models/user');
@@ -18,7 +18,7 @@ const createUser = (req, res) => {
           message: 'Переданы некорректные данные при создании пользователя.',
         });
       } else {
-        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
+        res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -27,9 +27,7 @@ const createUser = (req, res) => {
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch(() =>
-      res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' }),
-    );
+    .catch(() => res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' }));
 };
 
 // возвращает пользователя по _id
@@ -74,7 +72,7 @@ const updateUser = (req, res) => {
           message: 'Пользователь по указанному _id не найден.',
         });
       } else {
-        res.status(ERROR_DEFAUIT).send({
+        res.status(ERROR_DEFAULT).send({
           message:
             'Данные не прошли валидацию. Либо произошло что-то совсем немыслимое',
         });
@@ -104,7 +102,7 @@ const updateUserAvatar = (req, res) => {
           message: 'Пользователь по указанному _id не найден.',
         });
       } else {
-        res.status(ERROR_DEFAUIT).send({
+        res.status(ERROR_DEFAULT).send({
           message:
             'Данные не прошли валидацию. Либо произошло что-то совсем немыслимое',
         });

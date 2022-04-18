@@ -1,7 +1,7 @@
 const {
   ERROR_BAD_REQUEST,
   ERROR_NOT_FOUND,
-  ERROR_DEFAUIT,
+  ERROR_DEFAULT,
 } = require('../constants');
 
 const Card = require('../models/card');
@@ -19,7 +19,7 @@ const createCard = (req, res) => {
           .status(ERROR_BAD_REQUEST)
           .send({ message: 'Переданы некорректные данные карточки' });
       } else {
-        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
+        res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -28,9 +28,7 @@ const createCard = (req, res) => {
 const getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.send({ data: cards }))
-    .catch(() =>
-      res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' }),
-    );
+    .catch(() => res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' }));
 };
 
 // удаляет карточку
@@ -51,7 +49,7 @@ const delCardsById = (req, res) => {
           message: 'Переданы некорректные данные.',
         });
       } else {
-        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
+        res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -78,7 +76,7 @@ const likeCard = (req, res) => {
           message: 'Переданы некорректные данные для постановки лайка.',
         });
       } else {
-        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
+        res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -104,7 +102,7 @@ const dislikeCard = (req, res) => {
           .status(ERROR_BAD_REQUEST)
           .send({ message: 'Переданы некорректные данные для снятия лайка.' });
       } else {
-        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
+        res.status(ERROR_DEFAULT).send({ message: 'Произошла ошибка' });
       }
     });
 };
