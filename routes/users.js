@@ -1,19 +1,19 @@
 // создадим express router
-const userRouter = require("express").Router();
-const express = require("express");
+const userRouter = require('express').Router();
+
 const {
   getUsers,
   createUser,
   getUserById,
   updateUser,
   updateUserAvatar,
-} = require("../controllers/users.js"); // импортируем user контроллеры
+} = require('../controllers/users'); // импортируем user контроллеры
 
-userRouter.get("/users", express.json(), getUsers);
-userRouter.post("/users", express.json(), createUser);
-userRouter.get("/users/:userId", getUserById);
-userRouter.patch("/users/me", updateUser); //обновляет профиль
-userRouter.patch("/users/me/avatar", updateUserAvatar); //обновляет аватар
+userRouter.get('/users', getUsers);
+userRouter.post('/users', createUser);
+userRouter.get('/users/:userId', getUserById);
+userRouter.patch('/users/me', updateUser); // обновляет профиль
+userRouter.patch('/users/me/avatar', updateUserAvatar); // обновляет аватар
 
 // экспортируем его
 module.exports = userRouter;

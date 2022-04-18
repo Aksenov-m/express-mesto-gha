@@ -1,5 +1,11 @@
-const User = require("../models/user.js");
-const ERROR_CODE = 400;
+const {
+  ERROR_BAD_REQUEST,
+  ERROR_NOT_FOUND,
+  ERROR_DEFAUIT,
+} = require('../constants');
+
+const User = require('../models/user');
+
 // создаёт пользователя
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
@@ -7,12 +13,12 @@ const createUser = (req, res) => {
   User.create({ name, about, avatar })
     .then((users) => res.send({ data: users }))
     .catch((err) => {
-      if (err.name === "ValidationError") {
-        res.status(ERROR_CODE).send({
-          message: "Переданы некорректные данные при создании пользователя.",
+      if (err.name === 'ValidationError') {
+        res.status(ERROR_BAD_REQUEST).send({
+          message: 'Переданы некорректные данные при создании пользователя.',
         });
       } else {
-        res.status(500).send({ message: "Произошла ошибка" });
+        res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -21,12 +27,13 @@ const createUser = (req, res) => {
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch(() => res.status(500).send({ message: "Произошла ошибка" }));
+    .catch(() =>
+      res.status(ERROR_DEFAUIT).send({ message: 'Произошла ошибка' }),
+    );
 };
 
 // возвращает пользователя по _id
 const getUserById = (req, res) => {
-  debugger;
   User.findById(req.params.userId)
     .then((user) => {
       if (user.data !== null) {
@@ -34,12 +41,12 @@ const getUserById = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === "CastError") {
-        res.status(ERROR_CODE).send({
-          message: "Пользователь по указанному _id не найден.",
+      if (err.name === 'CastError') {
+        res.status(ERROR_BAD_REQUEST).send({
+          message: 'Пользователь по указанному _id не найден.',
         });
       } else {
-        res.status(404).send({ message: "Произошла ошибка" });
+        res.status(ERROR_NOT_FOUND).send({ message: 'Произошла ошибка' });
       }
     });
 };
@@ -54,22 +61,22 @@ const updateUser = (req, res) => {
     {
       new: true, // обработчик then получит на вход обновлённую запись
       runValidators: true, // данные будут валидированы перед изменением
-    }
+    },
   )
     .then((user) => res.send({ name: user.name, about: user.about }))
     .catch((err) => {
-      if (err.name === "ValidationError") {
-        res.status(ERROR_CODE).send({
-          message: "Переданы некорректные данные при обновлении профиля.",
+      if (err.name === 'ValidationError') {
+        res.status(ERROR_BAD_REQUEST).send({
+          message: 'Переданы некорректные данные при обновлении профиля.',
         });
-      } else if (err.name === "CastError") {
-        res.status(404).send({
-          message: "Пользователь по указанному _id не найден.",
+      } else if (err.name === 'CastError') {
+        res.status(ERROR_NOT_FOUND).send({
+          message: 'Пользователь по указанному _id не найден.',
         });
       } else {
-        res.status(500).send({
+        res.status(ERROR_DEFAUIT).send({
           message:
-            "Данные не прошли валидацию. Либо произошло что-то совсем немыслимое",
+            'Данные не прошли валидацию. Либо произошло что-то совсем немыслимое',
         });
       }
     });
@@ -84,22 +91,22 @@ const updateUserAvatar = (req, res) => {
     {
       new: true, // обработчик then получит на вход обновлённую запись
       runValidators: true, // данные будут валидированы перед изменением
-    }
+    },
   )
     .then((user) => res.send({ avatar: user.avatar }))
     .catch((err) => {
-      if (err.name === "ValidationError") {
-        res.status(ERROR_CODE).send({
-          message: "Переданы некорректные данные при обновлении профиля.",
+      if (err.name === 'ValidationError') {
+        res.status(ERROR_BAD_REQUEST).send({
+          message: 'Переданы некорректные данные при обновлении профиля.',
         });
-      } else if (err.name === "CastError") {
-        res.status(404).send({
-          message: "Пользователь по указанному _id не найден.",
+      } else if (err.name === 'CastError') {
+        res.status(ERROR_NOT_FOUND).send({
+          message: 'Пользователь по указанному _id не найден.',
         });
       } else {
-        res.status(500).send({
+        res.status(ERROR_DEFAUIT).send({
           message:
-            "Данные не прошли валидацию. Либо произошло что-то совсем немыслимое",
+            'Данные не прошли валидацию. Либо произошло что-то совсем немыслимое',
         });
       }
     });
