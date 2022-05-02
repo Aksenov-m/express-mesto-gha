@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs'); // импортируем bcrypt
+const NotFoundError = require('../errors/not-found-err');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema({
     required: true, // обязательное поле
     validate(value) {
       if (!validator.isURL(value)) {
-        throw new Error('Не верный формат');
+        throw new NotFoundError('Не верный формат');
       }
     },
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
@@ -35,7 +36,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate(value) {
       if (!validator.isEmail(value)) {
-        throw new Error('Не верный формат');
+        throw new NotFoundError('Не верный формат');
       }
     },
   },
