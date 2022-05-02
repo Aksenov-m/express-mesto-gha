@@ -34,13 +34,14 @@ app.post('/signup', celebrate({
     password: Joi.string().required().min(6),
   }),
 }), createUser);
+app.use((req, res, next) => {
+  next(new NotFoundError('Роутер не найден!'));
+});
+
 // авторизация
 app.use(auth);
 app.use(cardRouter); // запускаем Card
 app.use(userRouter); // запускаем user
-app.use((req, res, next) => {
-  next(new NotFoundError('Роутер не найден!'));
-});
 
 app.use(errors()); // обработчик ошибок celebrate
 
