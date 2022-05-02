@@ -12,7 +12,6 @@ const {
 
 userRouter.get('/users', getUsers);
 userRouter.get('/users/me', getCurrentUser); // информацию о текущем пользователе
-// userRouter.post('/users', createUser);
 userRouter.get('/users/:userId', getUserById);
 userRouter.patch('/users/me', updateUser); // обновляет профиль
 userRouter.patch('/users/me/avatar', updateUserAvatar); // обновляет аватар
