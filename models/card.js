@@ -10,7 +10,6 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String, // имя — это строка
     required: true, // обязательное поле
-    ref: 'link',
   },
   owner: {
     type: mongoose.Types.ObjectId, // ссылка на модель автора карточки
