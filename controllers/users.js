@@ -8,6 +8,7 @@ const User = require('../models/user');
 
 // создаёт пользователя
 const createUser = (req, res, next) => {
+  debugger;
   const {
     name, about,
     avatar,
