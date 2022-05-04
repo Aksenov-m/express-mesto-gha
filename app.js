@@ -1,4 +1,4 @@
-const regex = /((https?:):\/\/)(w{3}\.)?[a-z0-9./?:@\-_=#]+\.([a-z0-9&./?:@\-_=#])*/i;
+const regex = /((https?:):\/\/)?[a-z0-9./?:@\-_=#]+\.([a-z0-9&./?:@\-_=#])*/i;
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, errors, Joi } = require('celebrate');
@@ -21,7 +21,7 @@ app.use(express.json()); // для собирания JSON-формата
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 }), login);
 
@@ -31,7 +31,7 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(regex),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6),
+    password: Joi.string().required(),
   }),
 }), createUser);
 

@@ -27,16 +27,17 @@ const getCards = (req, res, next) => {
 };
 
 // удаляет карточку
-const delCardsById = (req, res, next) => {
+const deleteCard = (req, res, next) => {
+  const id = req.params.cardId;
   const owner = req.user._id;
-  Card.findByIdAndRemove(req.params.cardId)
+  Card.findById(id)
+    .orFail(() => new NotFoundError('Карточка с указанным _id не найдена.'))
     .then((card) => {
-      if (!card) {
-        next(new NotFoundError('Карточка с указанным _id не найдена.'));
-      } else if (card.owner.valueOf() !== owner) {
-        next(new ForbiddenError('Удалять чужую карточка нельзя.'));
+      if (!card.owner.equals(owner)) {
+        return next(new ForbiddenError('Удалять чужую карточка нельзя.'));
       }
-      return res.send({ data: card });
+      return Card.remove()
+        .then(() => res.send({ data: card }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -95,7 +96,7 @@ const dislikeCard = (req, res, next) => {
 module.exports = {
   createCard,
   getCards,
-  delCardsById,
+  deleteCard,
   likeCard,
   dislikeCard,
 };
