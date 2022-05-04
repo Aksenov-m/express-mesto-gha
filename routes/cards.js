@@ -14,7 +14,7 @@ cardRouter.get('/cards', getCards); // возвращает все карточ�
 cardRouter.post('/cards', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().pattern(regex),
+    link: Joi.string().required().pattern(regex),
   }),
 }), createCard); // создаёт карточку
 cardRouter.delete('/cards/:cardId', celebrate({
