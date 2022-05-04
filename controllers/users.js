@@ -33,7 +33,7 @@ const createUser = (req, res, next) => {
       if (err.code === 11000) {
         next(new ConflictError('Такой пользователь уже существует.'));
       } else if (err.name === 'ValidationError') {
-        next(new NotFoundError('Переданы некорректные данные при создании пользователя.'));
+        next(new BadRequestError('Переданы некорректные данные при создании пользователя.'));
       }
       return next(err);
     });
@@ -78,7 +78,7 @@ const updateUser = (req, res, next) => {
     .then((user) => res.send({ name: user.name, about: user.about }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new NotFoundError('Переданы некорректные данные при обновлении профиля.'));
+        next(new BadRequestError('Переданы некорректные данные при обновлении профиля.'));
       } else if (err.name === 'CastError') {
         next(new BadRequestError('Пользователь по указанному _id не найден.'));
       } else {
@@ -101,7 +101,7 @@ const updateUserAvatar = (req, res, next) => {
     .then((user) => res.send({ avatar: user.avatar }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new NotFoundError('Переданы некорректные данные при обновлении профиля.'));
+        next(new BadRequestError('Переданы некорректные данные при обновлении профиля.'));
       } else if (err.name === 'CastError') {
         next(new BadRequestError('Пользователь по указанному _id не найден.'));
       } else {
