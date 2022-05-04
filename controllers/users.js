@@ -50,13 +50,13 @@ const getUsers = (req, res, next) => {
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
     .then((user) => {
-      if (user.data !== null) {
-        res.send({ data: user });
-      }
+      if (!user) {
+        next(new NotFoundError('Пользователь по указанному _id не найден.'));
+      } else { res.send({ data: user }); }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Пользователь по указанному _id не найден.'));
+        next(new BadRequestError('Не верный _id.'));
       } else {
         next(err);
       }
